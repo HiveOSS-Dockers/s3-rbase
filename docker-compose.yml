@@ -1,0 +1,23 @@
+r-lib-vol:
+  image: busybox
+  container_name: rlib
+  volumes:
+    - /home/rlib 
+
+r-test:
+  image: hiveoss/s3-rbase:latest
+  container_name: rtest
+  privileged: true
+  cap_add:
+    - SYS_ADMIN
+  devices:
+    - /dev/fuse
+  environment:
+    - BUCKETNAME=SOME_AWS_BUCKETNAME
+    - AWSACCESSKEYID=SOME_AWS_ID
+    - AWSSECRETACCESSKEY=SOME_AWS_KEY
+  volumes:
+    - ./rscripts:/home/rscripts
+    - ./packages:/home/packages
+  volumes_from:
+    - r-lib-vol

@@ -1,0 +1,1 @@
+docker build -t hiveoss/s3-rbase:latest .
