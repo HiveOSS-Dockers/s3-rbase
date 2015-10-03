@@ -34,9 +34,10 @@ docker exec -ti s3-rbase1 cmd demo.R
 
 #### Environment variables
 The environment variables are used to indicate the bucket to mount and to provide credentials to access the bucket.
-`$BUCKETNAME` - the AWS bucket name
-`$AWSACCESSKEYID` - the AWS key id
-`$AWSSECRETACCESSKEY` - the AWS secret token
+
+- `$BUCKETNAME` - the AWS bucket name
+- `$AWSACCESSKEYID` - the AWS key id
+- `$AWSSECRETACCESSKEY` - the AWS secret token
 
 #### s3fs-fuse
 You can overwrite `scripts/runS3fs.sh` to change the parameters for the s3fs.
