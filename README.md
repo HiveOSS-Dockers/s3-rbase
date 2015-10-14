@@ -15,9 +15,19 @@ Run the s3-rbase container and mount the data container.
 docker run -d --name s3-rbase1 --volumes-from rlib --privileged --cap-add SYS_ADMIN --device /dev/fuse -d -e "BUCKETNAME=$BUCKETNAME" -e "AWSACCESSKEYID=$AWSACCESSKEYID" -e "AWSSECRETACCESSKEY=$AWSSECRETACCESSKEY" hiveoss/s3-rbase
 ```
 
-Install the required R packages.
+Install the all the R packages specified in `/home/packages/packages.txt`.
 ```
 docker exec -ti s3-rbase1 cmd install
+```
+
+Install the R packages manually.
+```
+docker exec -ti s3-rbase1 cmd install.packages <PACKAGE_NAME_1> <PACKAGE_NAME_2> <PACKAGE_NAME_3>
+```
+
+Setup to include BioConductor repo.
+```
+docker exec -ti s3-rbase1 cmd bio
 ```
 
 Check the installed R packages.
@@ -104,7 +114,7 @@ r-test:
     - AWSSECRETACCESSKEY=SOME_AWS_KEY
   volumes:
     - ./rscripts:/home/rscripts
-    - ./packages:/home/packages
+    - ./default_packages.txt:/home/packages/packages.txt
   volumes_from:
     - r-lib-vol
 ```

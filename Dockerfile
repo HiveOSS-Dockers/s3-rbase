@@ -25,6 +25,8 @@ COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 COPY scripts/runS3fs.sh scripts/runS3fs.sh
 COPY scripts/setup.R scripts/setup.R
+COPY scripts/setupBio.R scripts/setupBio.R
+COPY scripts/setupPackages.R scripts/setupPackages.R
 RUN chmod +x scripts/runS3fs.sh
 
 COPY scripts/cmd.sh /usr/local/bin/cmd
@@ -32,6 +34,9 @@ RUN chmod +x /usr/local/bin/cmd
 
 COPY packages /home/packages
 COPY rscripts /home/rscripts
+
+RUN mkdir /home/rlib
+RUN Rscript -e '.libPaths( c("/home/rlib",.libPaths()) )'
 
 WORKDIR /home/rscripts
 CMD ["/usr/local/bin/cmd"]
